@@ -1,0 +1,828 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Vancouver City FC - Strategic Business Analysis</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Audiowide&display=swap');
+            
+            body {
+                font-family: 'Rajdhani', sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0a0a0a 100%);
+                color: #e0e0e0;
+                min-height: 100vh;
+                position: relative;
+                overflow-x: hidden;
+            }
+            
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: 
+                    radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(0, 128, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 40%, rgba(255, 0, 128, 0.05) 0%, transparent 50%);
+                pointer-events: none;
+                z-index: -1;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: linear-gradient(145deg, rgba(30, 30, 46, 0.95) 0%, rgba(45, 45, 68, 0.95) 100%);
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 
+                    0 20px 40px rgba(0,0,0,0.4), 
+                    0 0 0 1px rgba(0,255,255,0.2),
+                    inset 0 1px 0 rgba(255,255,255,0.1);
+                border: 2px solid rgba(0,255,255,0.3);
+                backdrop-filter: blur(10px);
+                position: relative;
+            }
+            
+            .container::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(45deg, transparent 30%, rgba(0,255,255,0.05) 50%, transparent 70%);
+                border-radius: 20px;
+                pointer-events: none;
+            }
+            
+            .header {
+                text-align: center;
+                border-bottom: 3px solid #00ffff;
+                padding-bottom: 30px;
+                margin-bottom: 40px;
+                background: linear-gradient(90deg, rgba(0,255,255,0.1) 0%, rgba(0,128,255,0.1) 50%, rgba(0,255,255,0.1) 100%);
+                border-radius: 15px;
+                padding: 30px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .header::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: conic-gradient(from 0deg, transparent, rgba(0,255,255,0.1), transparent);
+                animation: rotate 10s linear infinite;
+                pointer-events: none;
+            }
+            
+            @keyframes rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            .header h1 {
+                color: #00ffff;
+                margin: 0;
+                font-size: 3.5em;
+                font-family: 'Audiowide', cursive;
+                font-weight: 900;
+                text-shadow: 
+                    0 0 10px rgba(0,255,255,0.8),
+                    0 0 20px rgba(0,255,255,0.6),
+                    0 0 30px rgba(0,255,255,0.4);
+                background: linear-gradient(45deg, #00ffff, #0080ff, #00ffff, #ff0080);
+                background-size: 400% 400%;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: gradientShift 3s ease-in-out infinite;
+                position: relative;
+                z-index: 1;
+            }
+            
+            @keyframes gradientShift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+            
+            .header h2 {
+                color: #a0a0a0;
+                margin: 15px 0 0 0;
+                font-size: 1.4em;
+                font-weight: 300;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                position: relative;
+                z-index: 1;
+            }
+            
+            .section {
+                margin: 50px 0;
+                padding: 30px;
+                border-left: 4px solid #00ffff;
+                background: linear-gradient(145deg, rgba(0,255,255,0.05) 0%, rgba(0,128,255,0.05) 100%);
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(180deg, #00ffff, #0080ff, #ff0080, #00ffff);
+                background-size: 100% 400%;
+                animation: borderGlow 2s ease-in-out infinite;
+            }
+            
+            @keyframes borderGlow {
+                0%, 100% { background-position: 0% 0%; }
+                50% { background-position: 0% 100%; }
+            }
+            
+            .section h2 {
+                color: #00ffff;
+                margin-top: 0;
+                font-size: 2.2em;
+                font-family: 'Orbitron', monospace;
+                font-weight: 700;
+                text-shadow: 0 0 15px rgba(0,255,255,0.5);
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+            
+            .section h3 {
+                color: #ffffff;
+                margin-top: 30px;
+                font-size: 1.5em;
+                font-weight: 600;
+                border-bottom: 2px solid rgba(0,255,255,0.3);
+                padding-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            .highlight {
+                background: linear-gradient(145deg, rgba(255,255,0,0.1) 0%, rgba(255,165,0,0.1) 100%);
+                border: 2px solid #ffaa00;
+                padding: 20px;
+                border-radius: 15px;
+                margin: 20px 0;
+                box-shadow: 0 0 20px rgba(255,170,0,0.3);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .highlight::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+                animation: shimmer 2s infinite;
+            }
+            
+            @keyframes shimmer {
+                0% { left: -100%; }
+                100% { left: 100%; }
+            }
+            
+            .metrics {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 25px;
+                margin: 30px 0;
+            }
+            
+            .metric {
+                background: linear-gradient(145deg, rgba(0,255,255,0.1) 0%, rgba(0,128,255,0.1) 100%);
+                padding: 25px;
+                border-radius: 15px;
+                text-align: center;
+                border: 2px solid #00ffff;
+                box-shadow: 0 10px 25px rgba(0,255,255,0.2);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .metric:hover {
+                transform: translateY(-10px) scale(1.05);
+                box-shadow: 0 20px 40px rgba(0,255,255,0.4);
+                border-color: #ff0080;
+            }
+            
+            .metric::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(45deg, transparent, rgba(0,255,255,0.1), transparent);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .metric:hover::before {
+                opacity: 1;
+            }
+            
+            .metric-value {
+                font-size: 2.5em;
+                font-weight: 900;
+                color: #00ffff;
+                font-family: 'Orbitron', monospace;
+                text-shadow: 0 0 15px rgba(0,255,255,0.8);
+                position: relative;
+                z-index: 1;
+            }
+            
+            .metric-label {
+                color: #a0a0a0;
+                font-size: 1em;
+                margin-top: 10px;
+                font-weight: 300;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                position: relative;
+                z-index: 1;
+            }
+            
+            .recommendation {
+                background: linear-gradient(145deg, rgba(0,255,0,0.1) 0%, rgba(0,200,0,0.1) 100%);
+                border: 2px solid #00ff00;
+                padding: 20px;
+                border-radius: 15px;
+                margin: 20px 0;
+                box-shadow: 0 0 20px rgba(0,255,0,0.3);
+            }
+            
+            .constraint {
+                background: linear-gradient(145deg, rgba(255,0,0,0.1) 0%, rgba(200,0,0,0.1) 100%);
+                border: 2px solid #ff4444;
+                padding: 20px;
+                border-radius: 15px;
+                margin: 20px 0;
+                box-shadow: 0 0 20px rgba(255,68,68,0.3);
+            }
+            
+            .chart-container {
+                margin: 30px 0;
+                text-align: center;
+                background: rgba(0,0,0,0.3);
+                padding: 20px;
+                border-radius: 15px;
+                border: 1px solid rgba(0,255,255,0.2);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            }
+            
+            ul {
+                padding-left: 25px;
+            }
+            
+            li {
+                margin: 12px 0;
+                color: #e0e0e0;
+                font-size: 1.1em;
+                line-height: 1.7;
+            }
+            
+            .phase {
+                background: linear-gradient(145deg, rgba(0,128,255,0.1) 0%, rgba(0,64,128,0.1) 100%);
+                border: 2px solid #0080ff;
+                padding: 25px;
+                border-radius: 15px;
+                margin: 15px 0;
+                box-shadow: 0 10px 25px rgba(0,128,255,0.2);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .phase::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, #00ffff, #0080ff, #ff0080, #00ffff);
+                background-size: 400% 100%;
+                animation: phaseGlow 3s ease-in-out infinite;
+            }
+            
+            @keyframes phaseGlow {
+                0%, 100% { background-position: 0% 0%; }
+                50% { background-position: 100% 0%; }
+            }
+            
+            .phase h4 {
+                color: #00ffff;
+                margin-top: 0;
+                font-family: 'Orbitron', monospace;
+                font-weight: 700;
+                font-size: 1.3em;
+                text-shadow: 0 0 10px rgba(0,255,255,0.5);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            p {
+                color: #e0e0e0;
+                font-size: 1.1em;
+                line-height: 1.7;
+            }
+            
+            strong {
+                color: #00ffff;
+                font-weight: 700;
+                text-shadow: 0 0 5px rgba(0,255,255,0.5);
+            }
+            
+            .glow {
+                text-shadow: 0 0 10px rgba(0,255,255,0.8);
+            }
+            
+            /* Scrollbar styling */
+            ::-webkit-scrollbar {
+                width: 12px;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: rgba(0,0,0,0.3);
+                border-radius: 10px;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(180deg, #00ffff, #0080ff);
+                border-radius: 10px;
+                border: 2px solid rgba(0,0,0,0.3);
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(180deg, #00ffff, #ff0080);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>VANCOUVER CITY FC</h1>
+                <h2>Strategic Business Analysis</h2>
+                <p>BOLT UBC First Byte 2025 - Case Competition</p>
+            </div>
+            
+            <div class="section">
+                <h2>EXECUTIVE SUMMARY</h2>
+                <p>Vancouver City FC is a mid-market football club in the BOLT Soccer League with strong 
+                foundational performance but significant untapped growth potential.</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">$19,690,647</div>
+                        <div class="metric-label">Total Revenue</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">70,000</div>
+                        <div class="metric-label">Total Members</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">5.7</div>
+                        <div class="metric-label">Avg Games Attended</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">6.8%</div>
+                        <div class="metric-label">Seasonal Pass Rate</div>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>KEY OPPORTUNITY</h3>
+                    <p>The club's greatest opportunity lies in seasonal pass expansion. Current seasonal pass 
+                    holders attend 22.4 games compared to 4.5 for non-holders - a <strong>5x engagement multiplier</strong>. 
+                    With only 6.8% adoption, this represents massive expansion potential.</p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>STRATEGIC RECOMMENDATION</h3>
+                    <p>Focus on three high-impact initiatives:</p>
+                    <ul>
+                        <li>Expand seasonal pass program (target 15% adoption)</li>
+                        <li>Optimize merchandise promotion strategy (fix 0.56x multiplier)</li>
+                        <li>Enhance online presence (leverage 4x advantage)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 1: REVENUE ANALYSIS</h2>
+                
+                <div class="chart-container">
+                    <div>                            <div id="53c04f51-7962-41c1-88c0-1532c03d9bb7" class="plotly-graph-div" style="height:400px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("53c04f51-7962-41c1-88c0-1532c03d9bb7")) {                    Plotly.newPlot(                        "53c04f51-7962-41c1-88c0-1532c03d9bb7",                        [{"labels":["Stadium Operations","Merchandise Sales"],"marker":{"colors":["#ff7f0e","#2ca02c"]},"textinfo":"label+percent+value","texttemplate":"%{label}\u003cbr\u003e%{percent}\u003cbr\u003e$%{value:,.0f}","values":[13233516,6457131],"type":"pie"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Revenue Composition"},"height":400},                        {"responsive": true}                    )                };            </script>        </div>
+                </div>
+                
+                <h3>REVENUE COMPOSITION</h3>
+                <p>Vancouver City FC follows a traditional sports club revenue model with stadium operations 
+                dominating at 67.2% of total revenue. This reflects strong matchday experience and loyal 
+                fan base. The 32.8% merchandise revenue represents significant growth opportunity.</p>
+                
+                <h3>SEASONAL PATTERNS</h3>
+                <ul>
+                    <li>February: Peak stadium month ($3.96M)</li>
+                    <li>March: Peak merchandise month ($1.09M)</li>
+                    <li>Clear seasonal cycles enable targeted marketing and operational planning</li>
+                </ul>
+                
+                <h3>STADIUM EFFICIENCY</h3>
+                <p>Lower Bowl emerges as most efficient revenue source, suggesting successful model for 
+                premium seating expansion. This supports strategic investment in premium options.</p>
+                
+                <h3>MERCHANDISE PERFORMANCE</h3>
+                <ul>
+                    <li>Jersey category dominates with $4.1M revenue</li>
+                    <li>Commands premium pricing at $152 average</li>
+                    <li>Indicates strong brand value and pricing power</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 2: FAN ENGAGEMENT ANALYSIS</h2>
+                
+                <div class="chart-container">
+                    <div>                            <div id="0893eece-8ffa-480a-af1a-25f6fb410c83" class="plotly-graph-div" style="height:400px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("0893eece-8ffa-480a-af1a-25f6fb410c83")) {                    Plotly.newPlot(                        "0893eece-8ffa-480a-af1a-25f6fb410c83",                        [{"marker":{"color":"lightblue"},"name":"Avg Games by Age","text":{"dtype":"f8","bdata":"uB6F61G4FkAUrkfhehQXQAAAAAAAABdAw\u002fUoXI\u002fCFkCkcD0K16MWQA=="},"textposition":"outside","texttemplate":"%{text:.1f}","x":["18-25","26-40","41-60","60+","\u003c18"],"y":{"dtype":"f8","bdata":"uB6F61G4FkAUrkfhehQXQAAAAAAAABdAw\u002fUoXI\u002fCFkCkcD0K16MWQA=="},"type":"bar","xaxis":"x","yaxis":"y"},{"marker":{"color":"gold"},"name":"Games by Pass Type","text":{"dtype":"f8","bdata":"9ihcj8L1EUAzMzMzM3M2QA=="},"textposition":"outside","texttemplate":"%{text:.1f}","x":[false,true],"y":{"dtype":"f8","bdata":"9ihcj8L1EUAzMzMzM3M2QA=="},"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.45]},"yaxis":{"anchor":"x","domain":[0.0,1.0]},"xaxis2":{"anchor":"y2","domain":[0.55,1.0]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0]},"annotations":[{"font":{"size":16},"showarrow":false,"text":"Games Attended by Age Group","x":0.225,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Seasonal Pass Impact","x":0.775,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":"Fan Engagement Analysis"},"height":400},                        {"responsive": true}                    )                };            </script>        </div>
+                </div>
+                
+                <h3>DEMOGRAPHIC OVERVIEW</h3>
+                <p>Fan engagement shows consistent patterns across demographics with 5.7 games average 
+                attendance per member. This consistency suggests strong brand loyalty and community 
+                connection.</p>
+                
+                <h3>AGE GROUP BREAKDOWN</h3>
+                <ul>
+                    <li>26-40: Highest engagement (5.8 games)</li>
+                    <li>18-25: Largest segment (44.8% of fanbase) - key target market</li>
+                    <li>Consistent engagement across all age groups</li>
+                </ul>
+                
+                <div class="highlight">
+                    <h3>SEASONAL PASS IMPACT - THE GAME CHANGER</h3>
+                    <p>This is the most significant finding:</p>
+                    <ul>
+                        <li>Seasonal pass holders: 22.4 games</li>
+                        <li>Non-holders: 4.5 games</li>
+                        <li><strong>5x engagement multiplier</strong></li>
+                        <li>Only 6.8% current adoption</li>
+                        <li>Massive expansion potential</li>
+                    </ul>
+                </div>
+                
+                <h3>GEOGRAPHIC ENGAGEMENT</h3>
+                <p>Domestic and international fans show equal engagement levels, indicating ability to 
+                maintain community focus while building international appeal.</p>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 3: MERCHANDISE PERFORMANCE</h2>
+                
+                <div class="chart-container">
+                    <div>                            <div id="2e014dcc-cfa5-4653-9179-c15b7c449c50" class="plotly-graph-div" style="height:400px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("2e014dcc-cfa5-4653-9179-c15b7c449c50")) {                    Plotly.newPlot(                        "2e014dcc-cfa5-4653-9179-c15b7c449c50",                        [{"marker":{"color":"lightblue"},"name":"Category Revenue","text":{"dtype":"f8","bdata":"AAAAAHxTT0EAAAAAsuIvQQAAAACQPyJBAAAAANAtC0EAAAAAkDcFQQAAAACAaAJBAAAAAOBT90AAAAAAgAHwQA=="},"textposition":"outside","texttemplate":"$%{text:,.0f}","x":["Jersey","Hoodie","Youth Jersey","Youth Hoodie","Cap","Scarf","Mug","Poster"],"y":{"dtype":"i4","bdata":"+KY+AFnxDwDIHwkAumUDAPKmAgAQTQIAPnUBABgAAQA="},"type":"bar","xaxis":"x","yaxis":"y"},{"labels":["Online","Team Store"],"name":"Channel Performance","textinfo":"label+percent+value","texttemplate":"%{label}\u003cbr\u003e%{percent}\u003cbr\u003e$%{value:,.0f}","values":{"dtype":"i4","bdata":"l+tOAJSbEwA="},"type":"pie","domain":{"x":[0.35555555555555557,0.6444444444444445],"y":[0.0,1.0]}},{"marker":{"color":"lightgreen"},"name":"Revenue by Promotion","text":{"dtype":"f8","bdata":"AAAAgAGET0EAAAAAlL9BQQ=="},"textposition":"outside","texttemplate":"$%{text:,.0f}","x":[false,true],"y":{"dtype":"i4","bdata":"Awg\u002fACh\u002fIwA="},"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.2888888888888889]},"yaxis":{"anchor":"x","domain":[0.0,1.0]},"xaxis2":{"anchor":"y2","domain":[0.7111111111111111,1.0]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0]},"annotations":[{"font":{"size":16},"showarrow":false,"text":"Revenue by Category","x":0.14444444444444446,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Channel Performance","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Promotion Impact","x":0.8555555555555556,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":"Merchandise Performance Analysis"},"height":400},                        {"responsive": true}                    )                };            </script>        </div>
+                </div>
+                
+                <h3>REVENUE OVERVIEW</h3>
+                <p>Merchandise sales total $6.5M with strong growth potential, representing 32.8% of 
+                total revenue.</p>
+                
+                <h3>CHANNEL PERFORMANCE</h3>
+                <ul>
+                    <li>Online: 80% of sales (4x advantage over team store)</li>
+                    <li>Team Store: 20% of sales</li>
+                    <li>Critical importance of digital presence and e-commerce optimization</li>
+                </ul>
+                
+                <div class="constraint">
+                    <h3>PROMOTION STRATEGY CRISIS</h3>
+                    <p>Current promotions show 0.56x multiplier - actually reducing revenue effectiveness.
+                    This represents major optimization opportunity.</p>
+                </div>
+                
+                <h3>PRODUCT CATEGORY BREAKDOWN</h3>
+                <ul>
+                    <li>Jersey: $4.1M revenue (dominates)</li>
+                    <li>Premium pricing: $152 average</li>
+                    <li>Strong brand value and pricing power</li>
+                    <li>March: Peak merchandise month ($1.09M)</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 4: OPERATIONAL CONSTRAINTS</h2>
+                
+                <div class="constraint">
+                    <h3>1. INTERNATIONAL MERCHANDISE FOCUS</h3>
+                    <ul>
+                        <li>100% international focus limits domestic growth</li>
+                        <li>Opportunity: Domestic market expansion</li>
+                        <li>Benefit: Local community engagement</li>
+                    </ul>
+                </div>
+                
+                <div class="constraint">
+                    <h3>2. CHANNEL IMBALANCE</h3>
+                    <ul>
+                        <li>80% online vs 20% team store</li>
+                        <li>Risk: Limited community connection</li>
+                        <li>Opportunity: Enhanced online experience</li>
+                    </ul>
+                </div>
+                
+                <div class="constraint">
+                    <h3>3. STADIUM OPERATIONS VARIATION</h3>
+                    <ul>
+                        <li>22.4x efficiency variation across sources</li>
+                        <li>Opportunity: Standardization using Lower Bowl model</li>
+                        <li>Benefit: Improved operational efficiency</li>
+                    </ul>
+                </div>
+                
+                <div class="constraint">
+                    <h3>4. PROMOTION STRATEGY INEFFICIENCY</h3>
+                    <ul>
+                        <li>0.56x multiplier (underperforming)</li>
+                        <li>Major optimization opportunity</li>
+                        <li>Potential for significant revenue improvement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 5: STRATEGIC RECOMMENDATIONS</h2>
+                
+                <div class="phase">
+                    <h4>IMMEDIATE ACTIONS (0-6 months)</h4>
+                    
+                    <h3>1. SEASONAL PASS EXPANSION</h3>
+                    <p><strong>Priority:</strong> HIGHEST<br>
+                    <strong>Target:</strong> 15% adoption (double current 6.8%)<br>
+                    <strong>Actions:</strong></p>
+                    <ul>
+                        <li>Targeted marketing to 18-25 demographic</li>
+                        <li>Flexible payment options</li>
+                        <li>Exclusive member benefits</li>
+                        <li>Student discounts and family packages</li>
+                    </ul>
+                    <p><strong>Impact:</strong> 5x engagement multiplier</p>
+                    
+                    <h3>2. PROMOTION STRATEGY OVERHAUL</h3>
+                    <p><strong>Priority:</strong> HIGH<br>
+                    <strong>Target:</strong> 1.5x multiplier (up from 0.56x)<br>
+                    <strong>Actions:</strong></p>
+                    <ul>
+                        <li>Data-driven customer segmentation</li>
+                        <li>Value-based offers</li>
+                        <li>Seasonal timing optimization</li>
+                        <li>A/B testing implementation</li>
+                    </ul>
+                    <p><strong>Impact:</strong> Significant revenue improvement</p>
+                    
+                    <h3>3. ONLINE PRESENCE ENHANCEMENT</h3>
+                    <p><strong>Priority:</strong> HIGH<br>
+                    <strong>Target:</strong> Leverage 4x advantage<br>
+                    <strong>Actions:</strong></p>
+                    <ul>
+                        <li>Improved user experience</li>
+                        <li>Mobile optimization</li>
+                        <li>Personalized recommendations</li>
+                        <li>Virtual try-on features</li>
+                    </ul>
+                    <p><strong>Impact:</strong> Increased online sales</p>
+                </div>
+                
+                <div class="phase">
+                    <h4>MEDIUM-TERM INITIATIVES (6-18 months)</h4>
+                    
+                    <h3>4. YOUTH ENGAGEMENT PROGRAMS</h3>
+                    <p><strong>Target:</strong> 18-25 demographic (44.8% of fanbase)<br>
+                    <strong>Actions:</strong></p>
+                    <ul>
+                        <li>Social media campaigns</li>
+                        <li>University partnerships</li>
+                        <li>Youth-focused events</li>
+                        <li>Community outreach</li>
+                    </ul>
+                    
+                    <h3>5. PREMIUM MERCHANDISE EXPANSION</h3>
+                    <p><strong>Focus:</strong> High-performing categories<br>
+                    <strong>Actions:</strong></p>
+                    <ul>
+                        <li>Jersey sales prioritization</li>
+                        <li>Limited editions</li>
+                        <li>Player collaborations</li>
+                        <li>Premium positioning</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <h4>LONG-TERM VISION (18-36 months)</h4>
+                    
+                    <h3>6. DIGITAL ENGAGEMENT PLATFORM</h3>
+                    <ul>
+                        <li>Mobile app with social features</li>
+                        <li>Personalized content</li>
+                        <li>Virtual fan experiences</li>
+                        <li>Community features</li>
+                    </ul>
+                    
+                    <h3>7. INTERNATIONAL FAN PROGRAMS</h3>
+                    <ul>
+                        <li>Localized content</li>
+                        <li>Regional merchandise</li>
+                        <li>Global community building</li>
+                        <li>International partnerships</li>
+                    </ul>
+                    
+                    <h3>8. PREMIUM MEMBERSHIP TIERS</h3>
+                    <ul>
+                        <li>Escalating benefits</li>
+                        <li>VIP experiences</li>
+                        <li>Exclusive access</li>
+                        <li>Priority privileges</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 6: SUCCESS METRICS</h2>
+                
+                <h3>REVENUE TARGETS</h3>
+                <ul>
+                    <li>Year 1: 20% increase ($23.6M total)</li>
+                    <li>Year 2: 35% increase ($26.6M total)</li>
+                    <li>Year 3: 50% increase ($29.5M total)</li>
+                </ul>
+                
+                <h3>FAN ENGAGEMENT TARGETS</h3>
+                <ul>
+                    <li>Seasonal Pass Adoption: 15% by Year 2</li>
+                    <li>Average Games Attended: 7.0 by Year 2</li>
+                    <li>Online Merchandise Growth: 50% by Year 2</li>
+                    <li>International Fan Growth: 20% by Year 3</li>
+                </ul>
+                
+                <h3>OPERATIONAL EFFICIENCY TARGETS</h3>
+                <ul>
+                    <li>Promotion Effectiveness: 1.5x multiplier by Year 1</li>
+                    <li>Domestic Merchandise: 30% of total by Year 2</li>
+                    <li>Stadium Operations: 15% efficiency improvement by Year 2</li>
+                    <li>Digital Engagement: 80% of members active by Year 2</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 7: IMPLEMENTATION ROADMAP</h2>
+                
+                <div class="phase">
+                    <h4>PHASE 1: FOUNDATION BUILDING (Months 1-6)</h4>
+                    <ul>
+                        <li>Launch seasonal pass expansion campaign</li>
+                        <li>Implement promotion strategy optimization</li>
+                        <li>Enhance online user experience</li>
+                        <li>Develop youth engagement programs</li>
+                        <li>Establish success metrics</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <h4>PHASE 2: GROWTH ACCELERATION (Months 7-18)</h4>
+                    <ul>
+                        <li>Scale successful Phase 1 initiatives</li>
+                        <li>Launch digital platform</li>
+                        <li>Implement premium membership tiers</li>
+                        <li>Expand international programs</li>
+                        <li>Optimize operational efficiency</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <h4>PHASE 3: STRATEGIC EXPANSION (Months 19-36)</h4>
+                    <ul>
+                        <li>Full digital ecosystem</li>
+                        <li>International market expansion</li>
+                        <li>Community partnerships</li>
+                        <li>Advanced analytics</li>
+                        <li>Sustainability initiatives</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 8: COMPETITIVE ADVANTAGES</h2>
+                
+                <h3>1. COMMUNITY FOCUS</h3>
+                <ul>
+                    <li>Strong domestic fan base</li>
+                    <li>Local identity and connection</li>
+                    <li>Emotional bonds drive loyalty</li>
+                    <li>Difficult for larger clubs to replicate</li>
+                </ul>
+                
+                <h3>2. DATA-DRIVEN APPROACH</h3>
+                <ul>
+                    <li>Comprehensive analysis</li>
+                    <li>Clear growth roadmap</li>
+                    <li>Analytical advantage</li>
+                    <li>Effective decision-making</li>
+                </ul>
+                
+                <h3>3. FLEXIBILITY & AGILITY</h3>
+                <ul>
+                    <li>Mid-market club advantages</li>
+                    <li>Responsive to fan needs</li>
+                    <li>Rapid adaptation capability</li>
+                    <li>Less bureaucratic structure</li>
+                </ul>
+                
+                <h3>4. AUTHENTIC LOCAL IDENTITY</h3>
+                <ul>
+                    <li>Genuine community connection</li>
+                    <li>Emotional engagement</li>
+                    <li>Sustainable competitive advantage</li>
+                    <li>Unique market position</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>SECTION 9: RISK ASSESSMENT</h2>
+                
+                <h3>RISK 1: MARKET COMPETITION</h3>
+                <p><strong>Threat:</strong> Larger clubs with more resources<br>
+                <strong>Mitigation:</strong> Focus on community connection and unique experiences</p>
+                
+                <h3>RISK 2: ECONOMIC DOWNTURN</h3>
+                <p><strong>Threat:</strong> Reduced discretionary spending<br>
+                <strong>Mitigation:</strong> Flexible pricing and payment options</p>
+                
+                <h3>RISK 3: TECHNOLOGY DISRUPTION</h3>
+                <p><strong>Threat:</strong> Changing fan expectations<br>
+                <strong>Mitigation:</strong> Continuous innovation and digital investment</p>
+                
+                <h3>RISK 4: FAN SATISFACTION</h3>
+                <p><strong>Threat:</strong> Alienating existing fans<br>
+                <strong>Mitigation:</strong> Gradual implementation and fan feedback integration</p>
+            </div>
+            
+            <div class="section">
+                <h2>CONCLUSION</h2>
+                
+                <p>Vancouver City FC has a clear path to sustainable growth through strategic initiatives 
+                that leverage existing strengths while addressing key opportunities.</p>
+                
+                <div class="highlight">
+                    <h3>KEY TAKEAWAYS</h3>
+                    <ul>
+                        <li>5x engagement multiplier from seasonal pass holders represents massive opportunity</li>
+                        <li>Only 6.8% current adoption leaves significant expansion potential</li>
+                        <li>4x online advantage provides strong foundation for digital growth</li>
+                        <li>Community focus creates sustainable competitive advantage</li>
+                    </ul>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>STRATEGIC FOCUS</h3>
+                    <p>The combination of seasonal pass expansion, merchandise optimization, and digital 
+                    enhancement provides a comprehensive framework for achieving 20%+ revenue growth 
+                    while maintaining the club's community-focused identity.</p>
+                </div>
+                
+                <h3>NEXT STEPS</h3>
+                <ol>
+                    <li>Present findings to leadership team</li>
+                    <li>Develop detailed implementation plans</li>
+                    <li>Establish success metrics and monitoring</li>
+                    <li>Begin Phase 1 initiatives immediately</li>
+                    <li>Create ongoing performance tracking</li>
+                </ol>
+                
+                <p>Vancouver City FC can position itself as a model for mid-market sports clubs, 
+                demonstrating how data-driven decision-making and community focus can drive 
+                sustainable growth in the competitive sports entertainment market.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    
