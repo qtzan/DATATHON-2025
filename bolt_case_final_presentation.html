@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vancouver City FC - Strategic Analysis & Recommendations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 40px 0;
+            background: rgba(132, 169, 255, 0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(132, 169, 255, 0.3);
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #84a9ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            color: #b8c9ff;
+            font-weight: 300;
+        }
+        
+        .section {
+            margin-bottom: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(132, 169, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h2 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #84a9ff;
+            text-align: center;
+        }
+        
+        h3 {
+            font-size: 2em;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #a8c4ff;
+        }
+        
+        h4 {
+            font-size: 1.6em;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+            color: #b8c9ff;
+        }
+        
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+        
+        .analysis-text {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #f0f0f0;
+        }
+        
+        .chart-container {
+            text-align: center;
+            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(132, 169, 255, 0.1);
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chart-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #84a9ff;
+        }
+        
+        .chart-description {
+            font-size: 1.1em;
+            color: #b8c9ff;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .insights {
+            background: rgba(132, 169, 255, 0.1);
+            border-left: 5px solid #84a9ff;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+        
+        .insights h4 {
+            color: #84a9ff;
+            margin-bottom: 15px;
+        }
+        
+        .insights ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .insights li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: #e0e0e0;
+        }
+        
+        .insights li:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #84a9ff;
+            font-weight: bold;
+        }
+        
+        .key-findings {
+            background: linear-gradient(135deg, rgba(132, 169, 255, 0.2), rgba(168, 196, 255, 0.1));
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid rgba(132, 169, 255, 0.3);
+        }
+        
+        .recommendations {
+            background: rgba(132, 169, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid rgba(132, 169, 255, 0.4);
+        }
+        
+        .recommendations h3 {
+            color: #84a9ff;
+            margin-bottom: 20px;
+        }
+        
+        .recommendations ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .recommendations li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #84a9ff;
+            color: #f0f0f0;
+        }
+        
+        .highlight {
+            background: linear-gradient(45deg, rgba(132, 169, 255, 0.3), rgba(168, 196, 255, 0.2));
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid rgba(132, 169, 255, 0.4);
+        }
+        
+        .highlight strong {
+            color: #84a9ff;
+            font-weight: 600;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px;
+            background: rgba(132, 169, 255, 0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(132, 169, 255, 0.3);
+        }
+        
+        .footer h2 {
+            color: #84a9ff;
+            margin-bottom: 20px;
+        }
+        
+        .footer p {
+            color: #b8c9ff;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vancouver City FC</h1>
+            <p class="subtitle">Strategic Analysis & Revenue Optimization Recommendations</p>
+            <p style="margin-top: 20px; font-size: 1.1em; color: #b8c9ff;">
+                Data-Driven Insights for Sustainable Growth in the BOLT Soccer League
+            </p>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>Executive Summary</h2>
+            <div class="analysis-text">
+                Vancouver City FC faces critical challenges in revenue diversification and fan engagement optimization. Our comprehensive analysis of stadium operations, merchandise sales, and fanbase data reveals significant opportunities for revenue growth through strategic interventions across all three revenue streams.
+            </div>
+            
+            <div class="key-findings">
+                <h3>Key Findings</h3>
+                <ul>
+                    <li><strong>Revenue Gap:</strong> Current revenue of $19.7M falls significantly below historical $60M levels</li>
+                    <li><strong>Demographic Opportunity:</strong> 18-25 age group represents 178,073 total games attended - largest engagement segment</li>
+                    <li><strong>Channel Imbalance:</strong> Online merchandise sales ($5.2M) significantly outperform team store ($1.3M)</li>
+                    <li><strong>Seasonal Pass Impact:</strong> Pass holders attend 5x more games (22.4 vs 4.5 average)</li>
+                    <li><strong>Stadium Underutilization:</strong> Lower bowl generates $24.7M while premium services only $2.3M</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fan Engagement Analysis -->
+        <div class="section">
+            <h2>Fan Engagement Analysis</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">Total Games Attended by Age Group</div>
+                <div class="chart-description">Analysis of fan engagement patterns across different demographic segments</div>
+                <img src="fan_engagement_custom.png" alt="Fan Engagement by Age Group">
+            </div>
+            
+            <div class="insights">
+                <h4>Critical Insights</h4>
+                <ul>
+                    <li><strong>18-25 Dominance:</strong> This demographic represents 178,073 total games attended - nearly 5x more than the 60+ group (19,638 games)</li>
+                    <li><strong>Youth Potential:</strong> Under-18 segment shows strong engagement with 40,117 games - future fan development opportunity</li>
+                    <li><strong>Core Demographic:</strong> 26-40 age group provides 101,472 games - represents purchasing power and stability</li>
+                    <li><strong>Engagement Gap:</strong> 60+ demographic shows lowest engagement - potential for senior-friendly initiatives</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                The data reveals a clear demographic concentration in younger age groups, with the 18-25 segment driving the majority of total attendance. This suggests that Vancouver City FC's current fan base is heavily skewed toward younger demographics, presenting both opportunities and challenges for long-term sustainability.
+            </div>
+        </div>
+
+        <!-- Revenue Composition -->
+        <div class="section">
+            <h2>Revenue Stream Analysis</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">Revenue Composition Breakdown</div>
+                <div class="chart-description">Current revenue distribution between stadium operations and merchandise sales</div>
+                <img src="revenue_composition_custom.png" alt="Revenue Composition">
+            </div>
+            
+            <div class="insights">
+                <h4>Revenue Stream Insights</h4>
+                <ul>
+                    <li><strong>Stadium Dominance:</strong> Stadium operations generate $13.2M (67% of total revenue)</li>
+                    <li><strong>Merchandise Opportunity:</strong> Merchandise sales at $6.5M (33%) - significant growth potential</li>
+                    <li><strong>Revenue Concentration Risk:</strong> Heavy dependence on stadium operations creates vulnerability</li>
+                    <li><strong>Diversification Need:</strong> Merchandise represents untapped potential for revenue growth</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                The current revenue structure shows a concerning over-reliance on stadium operations, which are vulnerable to attendance fluctuations. The merchandise segment, while smaller, presents significant opportunities for growth through improved online presence, international expansion, and targeted marketing campaigns.
+            </div>
+        </div>
+
+        <!-- Stadium Operations Deep Dive -->
+        <div class="section">
+            <h2>Stadium Operations Analysis</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">Stadium Revenue by Source</div>
+                <div class="chart-description">Detailed breakdown of stadium revenue streams and optimization opportunities</div>
+                <img src="stadium_sources_custom.png" alt="Stadium Revenue Sources">
+            </div>
+            
+            <div class="insights">
+                <h4>Stadium Revenue Insights</h4>
+                <ul>
+                    <li><strong>Lower Bowl Dominance:</strong> $24.7M revenue - represents core fan base and premium seating</li>
+                    <li><strong>Food & Beverage:</strong> $19.9M revenue - significant opportunity for menu optimization and pricing</li>
+                    <li><strong>Advertising Potential:</strong> $5.1M revenue - room for growth through digital advertising and partnerships</li>
+                    <li><strong>Premium Services:</strong> Only $2.3M from premium/conference - significant untapped potential</li>
+                    <li><strong>Concert Revenue:</strong> $4.9M from non-matchday events - diversification opportunity</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                Stadium operations show clear opportunities for optimization. The lower bowl's dominance suggests strong core fan support, while food & beverage revenue indicates high in-stadium spending. However, premium services and advertising represent significant untapped potential for revenue growth.
+            </div>
+        </div>
+
+        <!-- Merchandise Analysis -->
+        <div class="section">
+            <h2>Merchandise Sales Analysis</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">Merchandise Revenue by Category</div>
+                <div class="chart-description">Product performance analysis and category optimization opportunities</div>
+                <img src="merchandise_categories_custom.png" alt="Merchandise Categories">
+            </div>
+            
+            <div class="insights">
+                <h4>Product Category Insights</h4>
+                <ul>
+                    <li><strong>Jersey Dominance:</strong> $4.1M revenue (63% of merchandise) - core product performance</li>
+                    <li><strong>Youth Market:</strong> Youth jersey ($598K) and hoodie ($223K) show strong family engagement</li>
+                    <li><strong>Accessory Opportunity:</strong> Cap ($174K), scarf ($151K) - potential for expansion</li>
+                    <li><strong>Premium Items:</strong> Mug ($96K), poster ($66K) - limited revenue impact</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                Merchandise sales reveal a clear product hierarchy with jerseys dominating revenue. The strong performance of youth products indicates successful family engagement, while accessories present opportunities for revenue diversification. The limited impact of premium items suggests potential for product line expansion.
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">Sales Channel Performance</div>
+                <div class="chart-description">Online vs team store performance analysis</div>
+                <img src="channel_performance_custom.png" alt="Channel Performance">
+            </div>
+            
+            <div class="insights">
+                <h4>Channel Performance Insights</h4>
+                <ul>
+                    <li><strong>Online Dominance:</strong> $5.2M revenue (80% of merchandise) - digital transformation success</li>
+                    <li><strong>Team Store Underperformance:</strong> $1.3M revenue (20%) - significant improvement opportunity</li>
+                    <li><strong>Digital First Strategy:</strong> Online channel effectiveness suggests mobile-first approach</li>
+                    <li><strong>In-Store Experience:</strong> Team store optimization needed for matchday sales</li>
+                </ul>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">Promotion Impact Analysis</div>
+                <div class="chart-description">Effectiveness of promotional campaigns on merchandise sales</div>
+                <img src="promotion_impact_custom.png" alt="Promotion Impact">
+            </div>
+            
+            <div class="insights">
+                <h4>Promotion Effectiveness</h4>
+                <ul>
+                    <li><strong>Promotion Success:</strong> Promoted items generate $2.3M vs $4.1M non-promoted</li>
+                    <li><strong>Campaign Impact:</strong> Promotions show 36% of total merchandise revenue</li>
+                    <li><strong>Marketing ROI:</strong> Promotional campaigns demonstrate clear revenue impact</li>
+                    <li><strong>Expansion Opportunity:</strong> Increased promotion frequency could drive higher sales</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Seasonal Pass Analysis -->
+        <div class="section">
+            <h2>Seasonal Pass Impact Analysis</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">Seasonal Pass vs Regular Attendance</div>
+                <div class="chart-description">Impact of seasonal passes on fan engagement and attendance patterns</div>
+                <img src="seasonal_pass_custom.png" alt="Seasonal Pass Impact">
+            </div>
+            
+            <div class="insights">
+                <h4>Seasonal Pass Insights</h4>
+                <ul>
+                    <li><strong>Massive Engagement Boost:</strong> Pass holders attend 22.4 games vs 4.5 for regular fans</li>
+                    <li><strong>5x Attendance Multiplier:</strong> Seasonal passes create dramatically higher engagement</li>
+                    <li><strong>Revenue Stability:</strong> Pass holders provide predictable, recurring revenue</li>
+                    <li><strong>Fan Loyalty:</strong> Higher attendance suggests stronger emotional connection</li>
+                </ul>
+            </div>
+            
+            <div class="analysis-text">
+                The seasonal pass program demonstrates exceptional effectiveness in driving fan engagement. The 5x attendance multiplier suggests that pass holders represent the club's most valuable fan segment, providing both higher revenue per fan and greater long-term loyalty. This data strongly supports expanding the seasonal pass program.
+            </div>
+        </div>
+
+        <!-- Strategic Recommendations -->
+        <div class="section">
+            <h2>Strategic Recommendations</h2>
+            
+            <div class="recommendations">
+                <h3>Immediate Actions (0-6 months)</h3>
+                <ul>
+                    <li><strong>Expand Seasonal Pass Program:</strong> Target 18-25 demographic with student pricing and payment plans</li>
+                    <li><strong>Optimize Online Merchandise:</strong> Enhance mobile experience, implement AI recommendations, expand international shipping</li>
+                    <li><strong>Stadium Food & Beverage Upgrade:</strong> Modernize concessions, implement mobile ordering, expand premium options</li>
+                    <li><strong>Digital Advertising Expansion:</strong> Increase digital advertising revenue through stadium screens and mobile apps</li>
+                </ul>
+            </div>
+            
+            <div class="recommendations">
+                <h3>Medium-term Initiatives (6-18 months)</h3>
+                <ul>
+                    <li><strong>Premium Services Development:</strong> Create exclusive lounges, VIP experiences, and corporate packages</li>
+                    <li><strong>Youth Development Program:</strong> Leverage strong youth engagement for long-term fan development</li>
+                    <li><strong>International Expansion:</strong> Develop global merchandise strategy and international fan programs</li>
+                    <li><strong>Stadium Event Diversification:</strong> Increase non-matchday events, concerts, and community programs</li>
+                </ul>
+            </div>
+            
+            <div class="recommendations">
+                <h3>Long-term Strategy (18+ months)</h3>
+                <ul>
+                    <li><strong>Revenue Diversification:</strong> Achieve 40% merchandise, 50% stadium, 10% other revenue split</li>
+                    <li><strong>Global Fan Base:</strong> Establish international fan clubs and localized merchandise</li>
+                    <li><strong>Technology Integration:</strong> Implement smart stadium features, AR experiences, and data-driven personalization</li>
+                    <li><strong>Sustainability Focus:</strong> Develop eco-friendly merchandise and carbon-neutral operations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Financial Projections -->
+        <div class="section">
+            <h2>Projected Financial Impact</h2>
+            
+            <div class="highlight">
+                <h4>Revenue Growth Projections</h4>
+                <p><strong>Year 1 Target:</strong> $35M total revenue (78% increase from current $19.7M)</p>
+                <p><strong>Year 2 Target:</strong> $50M total revenue (154% increase)</p>
+                <p><strong>Year 3 Target:</strong> $65M total revenue (230% increase, exceeding historical $60M)</p>
+            </div>
+            
+            <div class="analysis-text">
+                Based on our analysis, implementing the recommended strategies could restore Vancouver City FC to its historical revenue levels within 3 years, with significant potential for exceeding previous performance through improved operational efficiency and diversified revenue streams.
+            </div>
+        </div>
+
+        <div class="footer">
+            <h2>Conclusion</h2>
+            <p>Vancouver City FC has significant untapped potential across all revenue streams. By focusing on demographic optimization, digital transformation, and strategic diversification, the club can achieve sustainable growth while maintaining its community-focused identity. The data clearly supports immediate action on seasonal pass expansion, merchandise optimization, and stadium experience enhancement.</p>
+        </div>
+    </div>
+</body>
+</html>

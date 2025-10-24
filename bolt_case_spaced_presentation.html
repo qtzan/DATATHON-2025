@@ -482,12 +482,12 @@
         </div>
         
         <h3>DEMOGRAPHIC ENGAGEMENT PATTERNS</h3>
-        <p class="analysis-text">Fan engagement shows remarkably consistent patterns across demographics with 5.7 games average attendance per member. This consistency suggests strong brand loyalty and community connection.</p>
+        <p class="analysis-text">The 18-25 age group dominates total attendance with 178,073 games, representing the largest and most active fan segment. This demographic shows the highest total engagement despite similar per-member averages across all age groups.</p>
         
         <ul>
-            <li><strong>26-40 Age Group:</strong> Highest engagement (5.8 games) - core demographic with purchasing power</li>
-            <li><strong>18-25 Age Group:</strong> Largest segment (44.8%) - key target for growth and long-term loyalty</li>
-            <li><strong>Consistent Engagement:</strong> All age groups show similar attendance patterns, indicating universal appeal</li>
+            <li><strong>18-25 Age Group:</strong> Highest total attendance (178,073 games) - largest and most active segment</li>
+            <li><strong>26-40 Age Group:</strong> Second highest (101,472 games) - core demographic with purchasing power</li>
+            <li><strong>Youth Segment:</strong> <18 age group shows strong engagement (40,117 games) - future fan development</li>
         </ul>
     </div>
 
@@ -737,19 +737,20 @@
         var revenueLayout = {
             title: {
                 text: 'Revenue Composition Analysis',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
             plot_bgcolor: 'rgba(0,0,0,0.3)',
             showlegend: true,
             legend: {
-                font: { size: 18, color: '#e0e0e0' },
+                font: { size: 16, color: '#e0e0e0' },
                 x: 0.5,
-                y: -0.1,
+                y: -0.15,
                 orientation: 'h'
-            }
+            },
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('revenue-composition-chart', revenueData, revenueLayout, {staticPlot: true});
@@ -766,33 +767,34 @@
                 marker: { size: 16, color: '#00ffff' },
                 text: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 textposition: 'top center',
-                textfont: { size: 16, color: '#ffffff' }
+                textfont: { size: 14, color: '#ffffff' }
             }
         ];
 
         var monthlyLayout = {
             title: {
                 text: 'Monthly Revenue Trends Analysis',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             xaxis: { 
-                title: { text: 'Month', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Month', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             yaxis: { 
-                title: { text: 'Revenue ($)', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Revenue ($)', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
             plot_bgcolor: 'rgba(0,0,0,0.3)',
             legend: {
-                font: { size: 18, color: '#e0e0e0' },
+                font: { size: 16, color: '#e0e0e0' },
                 x: 0.5,
-                y: -0.1,
+                y: -0.15,
                 orientation: 'h'
-            }
+            },
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('monthly-trends-chart', monthlyData, monthlyLayout, {staticPlot: true});
@@ -808,27 +810,28 @@
             },
             text: [24669304, 19948319, 5098950, 4875000, 3855705, 3807502, 2322177, 1562500],
             texttemplate: '$%{text:,.0f}',
-            textposition: 'outside',
-            textfont: { size: 16, color: '#ffffff' }
+            textposition: 'auto',
+            textfont: { size: 14, color: '#ffffff' }
         }];
 
         var stadiumLayout = {
             title: {
                 text: 'Stadium Revenue by Source Analysis',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             xaxis: { 
-                title: { text: 'Stadium Source', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 16, color: '#e0e0e0' }
+                title: { text: 'Stadium Source', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 14, color: '#e0e0e0' }
             },
             yaxis: { 
-                title: { text: 'Revenue ($)', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Revenue ($)', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
-            plot_bgcolor: 'rgba(0,0,0,0.3)'
+            plot_bgcolor: 'rgba(0,0,0,0.3)',
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('stadium-sources-chart', stadiumData, stadiumLayout, {staticPlot: true});
@@ -836,36 +839,37 @@
         // Fan Age Chart - Static for PDF
         var fanAgeData = [{
             x: ['18-25', '26-40', '41-60', '60+', '<18'],
-            y: [5.7, 5.8, 5.6, 5.5, 5.4],
+            y: [178073, 101472, 60499, 19638, 40117],
             type: 'bar',
-            name: 'Avg Games by Age',
+            name: 'Total Games by Age',
             marker: { 
                 color: '#00ffff',
                 line: { width: 3, color: '#ffffff' }
             },
-            text: [5.7, 5.8, 5.6, 5.5, 5.4],
-            texttemplate: '%{text:.1f}',
-            textposition: 'outside',
-            textfont: { size: 18, color: '#ffffff' }
+            text: [178073, 101472, 60499, 19638, 40117],
+            texttemplate: '%{text:,.0f}',
+            textposition: 'auto',
+            textfont: { size: 14, color: '#ffffff' }
         }];
 
         var fanAgeLayout = {
             title: {
-                text: 'Fan Engagement by Age Group',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                text: 'Total Games Attended by Age Group',
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             xaxis: { 
-                title: { text: 'Age Group', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 16, color: '#e0e0e0' }
+                title: { text: 'Age Group', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 14, color: '#e0e0e0' }
             },
             yaxis: { 
-                title: { text: 'Average Games Attended', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Total Games Attended', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
-            plot_bgcolor: 'rgba(0,0,0,0.3)'
+            plot_bgcolor: 'rgba(0,0,0,0.3)',
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('fan-age-chart', fanAgeData, fanAgeLayout, {staticPlot: true});
@@ -882,27 +886,28 @@
             },
             text: [4.5, 22.4],
             texttemplate: '%{text:.1f}',
-            textposition: 'outside',
+            textposition: 'auto',
             textfont: { size: 18, color: '#ffffff' }
         }];
 
         var seasonalLayout = {
             title: {
                 text: 'Seasonal Pass Impact Analysis',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             xaxis: { 
-                title: { text: 'Pass Type', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 16, color: '#e0e0e0' }
+                title: { text: 'Pass Type', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 14, color: '#e0e0e0' }
             },
             yaxis: { 
-                title: { text: 'Average Games Attended', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Average Games Attended', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
-            plot_bgcolor: 'rgba(0,0,0,0.3)'
+            plot_bgcolor: 'rgba(0,0,0,0.3)',
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('seasonal-pass-chart', seasonalData, seasonalLayout, {staticPlot: true});
@@ -918,27 +923,28 @@
             },
             text: [4105976, 1044825, 597960, 222650, 173810, 150800, 95550, 65560],
             texttemplate: '$%{text:,.0f}',
-            textposition: 'outside',
-            textfont: { size: 16, color: '#ffffff' }
+            textposition: 'auto',
+            textfont: { size: 14, color: '#ffffff' }
         }];
 
         var merchandiseLayout = {
             title: {
                 text: 'Merchandise Revenue by Category',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             xaxis: { 
-                title: { text: 'Product Category', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 16, color: '#e0e0e0' }
+                title: { text: 'Product Category', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 14, color: '#e0e0e0' }
             },
             yaxis: { 
-                title: { text: 'Revenue ($)', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Revenue ($)', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
-            plot_bgcolor: 'rgba(0,0,0,0.3)'
+            plot_bgcolor: 'rgba(0,0,0,0.3)',
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('merchandise-categories-chart', merchandiseData, merchandiseLayout, {staticPlot: true});
@@ -960,18 +966,19 @@
         var channelLayout = {
             title: {
                 text: 'Sales Channel Performance Analysis',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
             plot_bgcolor: 'rgba(0,0,0,0.3)',
             legend: {
-                font: { size: 18, color: '#e0e0e0' },
+                font: { size: 16, color: '#e0e0e0' },
                 x: 0.5,
-                y: -0.1,
+                y: -0.15,
                 orientation: 'h'
-            }
+            },
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('channel-performance-chart', channelData, channelLayout, {staticPlot: true});
@@ -987,27 +994,28 @@
             },
             text: [4130819, 2326312],
             texttemplate: '$%{text:,.0f}',
-            textposition: 'outside',
+            textposition: 'auto',
             textfont: { size: 18, color: '#ffffff' }
         }];
 
         var promotionLayout = {
             title: {
                 text: 'Promotion Impact Analysis',
-                font: { size: 28, color: '#00ffff', family: 'Orbitron' }
+                font: { size: 24, color: '#00ffff', family: 'Orbitron' }
             },
             xaxis: { 
-                title: { text: 'Promotion Type', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 16, color: '#e0e0e0' }
+                title: { text: 'Promotion Type', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 14, color: '#e0e0e0' }
             },
             yaxis: { 
-                title: { text: 'Revenue ($)', font: { size: 20, color: '#e0e0e0' } },
-                tickfont: { size: 18, color: '#e0e0e0' }
+                title: { text: 'Revenue ($)', font: { size: 18, color: '#e0e0e0' } },
+                tickfont: { size: 16, color: '#e0e0e0' }
             },
             height: 500,
-            font: { color: '#e0e0e0', size: 18, family: 'Exo 2' },
+            font: { color: '#e0e0e0', size: 16, family: 'Exo 2' },
             paper_bgcolor: 'rgba(0,0,0,0.3)',
-            plot_bgcolor: 'rgba(0,0,0,0.3)'
+            plot_bgcolor: 'rgba(0,0,0,0.3)',
+            margin: { t: 100, b: 100, l: 100, r: 100 }
         };
 
         Plotly.newPlot('promotion-impact-chart', promotionData, promotionLayout, {staticPlot: true});
