@@ -49,6 +49,33 @@ In this project we attempt to help Vancouver City FC identify the most impactful
 - Lack of localized content 
 -Need pathways to become active supporters: regional fan clubs, more merchandise availability
 
+**Solutions**
+*Immediate Solutions*
+- Target 18-25 demographic with student pricing
+- Expand international shipping for large international fanbase
+- Implement mobile ordering
+- Increase digital advertising through social media
+
+*Midterm Solutions*
+- Premium services development: VIP experience
+- Youth development for long-term fan development
+- International expansion for merchandise sales globally
+- Utilize stadium on non-match days for concerts/events.
+
+*Long Term Solutions*
+- Implement eco-friendly upgrades
+- Renovate sections for a specific audience (VIP, families)
+- Implement stadium features, AR experiences
+- Subscription-based fan boxes
+
+**Projections**
+*Projected Financial Impact:*
+Year 1 target: $3.5M total revenue (~8 increase)
+Year 2 Target: $5.0M total revenue (~15% increase)
+year 3 target: $6.5M total revenue (~20% increase)
+
+Based on our analysis, implementing the recommended strategies could restore Vancouver City FC to historical revenue levels within 3 years, with significant potential for further improvement. By focusing on modernization, demographic optimization, and strategic diversification, the club can achieve unprescedented growth. 
+
 
 
 
