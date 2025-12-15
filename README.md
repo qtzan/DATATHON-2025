@@ -49,12 +49,30 @@ In this project we attempt to help Vancouver City FC identify the most impactful
 - Lack of localized content 
 -Need pathways to become active supporters: regional fan clubs, more merchandise availability
 
-**Solutions**
+## Current State Visualized
+
+<img width="557" height="347" alt="image" src="https://github.com/user-attachments/assets/94b8380f-fe12-47a0-9dc8-9db3a13956b0" />
+
+
+<img width="555" height="345" alt="image" src="https://github.com/user-attachments/assets/10b01737-9a3a-44fe-b9fe-6fceb6506783" />
+
+<img width="677" height="426" alt="image" src="https://github.com/user-attachments/assets/b8396a65-6d1c-4e1c-8b3e-4418d624bfad" />
+
+
+<img width="629" height="392" alt="image" src="https://github.com/user-attachments/assets/afb013cd-7b28-4e5f-b05d-c39bb1c7806d" />
+
+
+
+
+
+## **Solutions**
 *Immediate Solutions*
 - Target 18-25 demographic with student pricing
 - Expand international shipping for large international fanbase
 - Implement mobile ordering
 - Increase digital advertising through social media
+
+
 
 *Midterm Solutions*
 - Premium services development: VIP experience
