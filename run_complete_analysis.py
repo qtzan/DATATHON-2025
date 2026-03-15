@@ -9,6 +9,8 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import plotly.io as pio
+from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -118,7 +120,7 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig1.show()
+    # (Rendering handled via HTML export at end)
     
     print("📈 INSIGHTS:")
     print(f"   • Peak Stadium Month: {monthly_stadium.idxmax()} (${monthly_stadium.max():,.2f})")
@@ -178,7 +180,7 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig2.show()
+    # (Rendering handled via HTML export at end)
     
     print("📈 INSIGHTS:")
     print(f"   • Average games attended: {avg_games:.1f}")
@@ -238,7 +240,7 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig3.show()
+    # (Rendering handled via HTML export at end)
     
     print("📈 INSIGHTS:")
     print(f"   • Total merchandise revenue: ${merchandise['Unit_Price'].sum():,.2f}")
@@ -293,7 +295,7 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig4.show()
+    # (Rendering handled via HTML export at end)
     
     print("📈 INSIGHTS:")
     print(f"   • Seasonal pass rate: {seasonal_pass_rate:.1%}")
@@ -352,7 +354,7 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig5.show()
+    # (Rendering handled via HTML export at end)
     
     print("📈 INSIGHTS:")
     print(f"   • International merchandise focus: {merchandise_constraints['International']/merchandise_constraints.sum()*100:.1f}%")
@@ -419,7 +421,7 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig6.show()
+    # (Rendering handled via HTML export at end)
     
     print("📈 INSIGHTS:")
     print(f"   • Highest priced category: {pricing_analysis['mean'].idxmax()} (${pricing_analysis['mean'].max():.2f})")
@@ -487,7 +489,81 @@ def run_complete_analysis():
         showlegend=True
     )
     
-    fig_summary.show()
+    # (Rendering handled via HTML export at end)
+
+    # ------------------------------------------------------------------
+    # Export all figures to a single interactive HTML page
+    # ------------------------------------------------------------------
+    export_path = "complete_analysis_dashboard.html"
+    sections = [
+        ("Question 1: Revenue Analysis & Strategic Opportunities", fig1),
+        ("Question 2: Attendance Patterns & Stadium Revenue Analysis", fig2),
+        ("Question 3: Merchandise Sales Analysis & Trends", fig3),
+        ("Question 4: Matchday Experience & Fan Retention Analysis", fig4),
+        ("Question 5: Constraints & Asset Utilization Analysis", fig5),
+        ("Question 6: Data-Driven Decision Making Framework", fig6),
+        ("Vancouver City FC - Executive Summary Dashboard", fig_summary),
+    ]
+
+    section_html_blocks = []
+    for idx, (title, fig) in enumerate(sections, start=1):
+        div_html = pio.to_html(
+            fig,
+            include_plotlyjs=False,
+            full_html=False,
+            div_id=f"fig_{idx}"
+        )
+        section_html_blocks.append(
+            f'<section class="section"><h2>{title}</h2>{div_html}</section>'
+        )
+
+    generated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    html_content = f"""
+<!DOCTYPE html>
+<html lang=\"en\"> 
+<head>
+  <meta charset=\"utf-8\" />
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+  <title>Vancouver City FC - Complete Analysis Dashboard</title>
+  <script src=\"https://cdn.plot.ly/plotly-2.35.2.min.js\"></script>
+  <style>
+    :root {{
+      --maxw: 1200px;
+      --pad: 20px;
+      --bg: #f7f8fa;
+      --fg: #0f172a;
+      --muted: #475569;
+      --accent: #2563eb;
+    }}
+    html, body {{ margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: Arial, Helvetica, sans-serif; }}
+    header {{ background: white; border-bottom: 1px solid #e2e8f0; }}
+    .wrap {{ max-width: var(--maxw); margin: 0 auto; padding: var(--pad); }}
+    header h1 {{ margin: 0; font-size: 22px; }}
+    header p {{ margin: 6px 0 0; color: var(--muted); font-size: 14px; }}
+    .section {{ background: white; max-width: var(--maxw); margin: 24px auto; padding: 16px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }}
+    .section h2 {{ margin: 0 0 8px; font-size: 18px; color: var(--accent); }}
+    footer {{ color: var(--muted); font-size: 12px; padding: 24px 0 48px; text-align: center; }}
+  </style>
+  </head>
+  <body>
+    <header>
+      <div class=\"wrap\">
+        <h1>Vancouver City FC - Complete Analysis Dashboard</h1>
+        <p>BOLT UBC First Byte 2025 • Generated {generated_at}</p>
+      </div>
+    </header>
+    {''.join(section_html_blocks)}
+    <footer>
+      Interactive charts powered by Plotly. Open this file locally to view.
+    </footer>
+  </body>
+</html>
+"""
+
+    with open(export_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    print(f"\n🗂️ Saved interactive dashboard to {export_path}")
     
     # Final recommendations
     print("\n" + "="*80)
